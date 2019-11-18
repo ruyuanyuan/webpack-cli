@@ -1,0 +1,25 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "手写一个webpack 打包 转义 脚手架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./config/webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruyuanyuan/webpack-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruyuanyuan/webpack-cli/issues"
+  },
+  "homepage": "https://github.com/ruyuanyuan/webpack-cli#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
