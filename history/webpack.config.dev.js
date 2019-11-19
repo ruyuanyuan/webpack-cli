@@ -1,11 +1,10 @@
 // webpack 是node 写出来的  node 的写法
 let path = require('path')
 let HtmlwebpackPlugin = require('html-webpack-plugin')
-let MiniCssExtractPlugin = require('mini-css-extract-plugin') //css 抽离插件
+let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 let optimizeCss= require('optimize-css-assets-webpack-plugin')
 let uglifyjsPlugin =require('uglifyjs-webpack-plugin')
 module.exports = {
-  //本地起服务
   devServer:{
     port:3000, //端口号
     progress:true, //显示进度
@@ -13,9 +12,8 @@ module.exports = {
     open:true, //打开默认浏览器
     compress:true //默认压缩
   },
-  mode:'development', // 模式  1. production 2.development
+  mode:'production', // 模式  1. production 2.development
   entry:'./src/index.js' ,//入口
-  //出口
   output:{
     filename:'bundle.[hash:8].js', //打包后的文件名
     path:path.resolve(__dirname,'../build') //输出位置
@@ -26,13 +24,13 @@ module.exports = {
       new uglifyjsPlugin({
         cache:true,
         parallel:true,
-        sourceMap:true,
+        sourceMap:true
       }),
       new optimizeCss(),
       
     ]
   },
-  // 插件
+  //插件
   plugins:[
     new HtmlwebpackPlugin({
       template:path.resolve(__dirname,'../index.html'), //模板路径
@@ -44,7 +42,7 @@ module.exports = {
       // hash:true //加hash值
     }),
     new MiniCssExtractPlugin({
-      filename:'main.[hash:8].css'
+      filename:'main.css'
     })
   ],
   // 模块
@@ -56,9 +54,13 @@ module.exports = {
         //loader执行顺序 从右向左,从下到上
         test:/\.css$/,
         use:[
-          MiniCssExtractPlugin.loader, //css 抽离插件 link 引入
+          {
+            loader:'style-loader',
+            options:{
+              insertAt:'top' //插入到head标签时插入到顶部
+            }
+          },
           'css-loader',
-          'postcss-loader',
         ]
       },
       { 
@@ -67,9 +69,10 @@ module.exports = {
         //loader执行顺序 从右向左,从下到上
         test:/\.scss$/,
         use:[
-          MiniCssExtractPlugin.loader, //css 抽离插件 link 引入
+          {
+            loader:'style-loader',
+          },
           'css-loader',
-          'postcss-loader',
           'sass-loader', //scss => css
         ]
       }
