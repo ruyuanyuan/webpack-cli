@@ -17,7 +17,7 @@ module.exports = {
   entry:'./src/index.js' ,//入口
   //出口
   output:{
-    filename:'bundle.[hash:8].js', //打包后的文件名
+    filename:'js/[name].[hash:8].js', //打包后的文件名
     path:path.resolve(__dirname,'../build'), //输出位置
     // publicPath:'http://www.wolf.xin' 文件加
   },
@@ -37,7 +37,7 @@ module.exports = {
   plugins:[
     new HtmlwebpackPlugin({
       template:path.resolve(__dirname,'../index.html'), //模板路径
-      filename:'index.html', //输出文件
+      filename:path.resolve(__dirname,'../build/index.html'), //输出文件
       minify:{ //压缩文件
         removeAttributeQuotes:true, //去除双引号
         collapseWhitespace:true, //去除空行
@@ -45,7 +45,7 @@ module.exports = {
       // hash:true //加hash值
     }),
     new MiniCssExtractPlugin({
-      filename:'/css/main.[hash:8].css'
+      filename:'/css/[name].[hash:8].css'
     })
   ],
   // 模块
@@ -92,7 +92,6 @@ module.exports = {
               presets:[
                 '@babel/preset-env'
               ],
-              outputPath:'/js/',
               plugins:[
                 ['@babel/plugin-proposal-decorators',{"legacy":true}], // 装饰器兼容
                 ['@babel/plugin-proposal-class-properties',{'loose':true}], //class 类转换兼容
