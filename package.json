@@ -1,31 +1,9 @@
 {
   "name": "webpack",
   "version": "1.0.0",
-  "description": "手写一个webpack 打包 转义 脚手架",
+  "description": "webpack 多页面打包",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config ./config/webpack.config.dev.js",
-    "dev": "webpack-dev-server --config ./config/webpack.config.dev.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ruyuanyuan/webpack-cli.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ruyuanyuan/webpack-cli/issues"
-  },
-  "homepage": "https://github.com/ruyuanyuan/webpack-cli#readme",
-  "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-proposal-decorators": "^7.7.0",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
-    "@typescript-eslint/parser": "^2.8.0",
+  "dependencies": {
     "autoprefixer": "^9.7.2",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
@@ -46,8 +24,22 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.7.0",
-    "@babel/runtime": "^7.7.2"
-  }
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./config/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruyuanyuan/webpack-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruyuanyuan/webpack-cli/issues"
+  },
+  "homepage": "https://github.com/ruyuanyuan/webpack-cli#readme"
 }
