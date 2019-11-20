@@ -18,7 +18,8 @@ module.exports = {
   //出口
   output:{
     filename:'bundle.[hash:8].js', //打包后的文件名
-    path:path.resolve(__dirname,'../build') //输出位置
+    path:path.resolve(__dirname,'../build'), //输出位置
+    // publicPath:'http://www.wolf.xin' 文件加
   },
   //优化项
   optimization:{
@@ -44,12 +45,19 @@ module.exports = {
       // hash:true //加hash值
     }),
     new MiniCssExtractPlugin({
-      filename:'main.[hash:8].css'
+      filename:'/css/main.[hash:8].css'
     })
   ],
   // 模块
   module:{ 
     rules:[ //规则
+      { 
+        //css-loader 解析 @import语法 
+        //style-loader css插入到head标签中
+        //loader执行顺序 从右向左,从下到上
+        test:/\.html$/,
+        use:'html-withimg-loader'
+      },
       { 
         //css-loader 解析 @import语法 
         //style-loader css插入到head标签中
@@ -72,6 +80,49 @@ module.exports = {
           'postcss-loader',
           'sass-loader', //scss => css
         ]
+      },
+      {
+        test:/\.js$/,
+        exclude:/node_modules/,
+        include:path.resolve(__dirname,'../src'),
+        use:[
+          {
+            loader:'babel-loader',
+            options:{ //用babel-loader 需要把es6-es5
+              presets:[
+                '@babel/preset-env'
+              ],
+              outputPath:'/js/',
+              plugins:[
+                ['@babel/plugin-proposal-decorators',{"legacy":true}], // 装饰器兼容
+                ['@babel/plugin-proposal-class-properties',{'loose':true}], //class 类转换兼容
+                '@babel/plugin-transform-runtime'
+              ]
+            }
+          }
+        ]
+      },
+      {
+        test:/\.js$/,
+        use:{
+          loader:'eslint-loader',
+          options:{
+            enforce:'pre'
+          }
+        }
+      },
+      {
+        test:/\.(png|jpg|git|jpeg)$/,
+        //做限制 小于多少k,用base64转换
+        //否则用file-loader
+        use:{
+          loader:'url-loader',
+          options:{
+            limit:2*1024,
+            outputPath:'/img/'
+            // publicPath:'http://www.wolf.xin' 文件加cdn前缀
+          }
+        }
       }
     ]
   }
